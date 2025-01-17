@@ -7,7 +7,7 @@ import { envs } from '../config';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const logger = new Logger('PERSONAL');
+  const logger = new Logger('USERS');
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
