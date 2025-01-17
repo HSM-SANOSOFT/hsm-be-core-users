@@ -8,28 +8,40 @@ dotenv.config({
   path: path.resolve(__dirname, '../../../kubernetes/envs/global.env'),
 });
 dotenv.config({
-  path: path.resolve(__dirname, '../../../kubernetes/envs/personal.env'),
+  path: path.resolve(__dirname, '../../../kubernetes/envs/users.env'),
 });
 
 interface EnvVars {
-  PERSONAL_MICROSERVICE_HOST: string;
-  PERSONAL_MICROSERVICE_PORT: number;
+  USERS_MICROSERVICE_HOST: string;
+  USERS_MICROSERVICE_PORT: number;
 
   DB_USER: string;
   DB_PASSWORD: string;
   DB_CONNECTION_STRING: string;
   ORACLE_CLIENT_PATH: string;
+
+  AUTH_MICROSERVICE_HOST: string;
+  AUTH_MICROSERVICE_PORT: number;
+
+  COMS_MICROSERVICE_HOST: string;
+  COMS_MICROSERVICE_PORT: number;
 }
 
 const envsSchema = joi
   .object({
-    PERSONAL_MICROSERVICE_HOST: joi.string().default('localhost'),
-    PERSONAL_MICROSERVICE_PORT: joi.number().required(),
+    USERS_MICROSERVICE_HOST: joi.string().default('localhost'),
+    USERS_MICROSERVICE_PORT: joi.number().required(),
 
     DB_USER: joi.string().required(),
     DB_PASSWORD: joi.string().required(),
     DB_CONNECTION_STRING: joi.string().required(),
     ORACLE_CLIENT_PATH: joi.string().default('C:/ORACLE/instantclient_12_1'),
+
+    AUTH_MICROSERVICE_HOST: joi.string().default('localhost'),
+    AUTH_MICROSERVICE_PORT: joi.number().required(),
+
+    COMS_MICROSERVICE_HOST: joi.string().default('localhost'),
+    COMS_MICROSERVICE_PORT: joi.number().required(),
   })
   .unknown()
   .required();
@@ -43,11 +55,17 @@ if (error) {
 const envVars: EnvVars = value;
 
 export const envs = {
-  PERSONAL_MICROSERVICE_HOST: envVars.PERSONAL_MICROSERVICE_HOST,
-  PERSONAL_MICROSERVICE_PORT: envVars.PERSONAL_MICROSERVICE_PORT,
+  USERS_MICROSERVICE_HOST: envVars.USERS_MICROSERVICE_HOST,
+  USERS_MICROSERVICE_PORT: envVars.USERS_MICROSERVICE_PORT,
 
   DB_USER: envVars.DB_USER,
   DB_PASSWORD: envVars.DB_PASSWORD,
   DB_CONNECTION_STRING: envVars.DB_CONNECTION_STRING,
   ORACLE_CLIENT_PATH: envVars.ORACLE_CLIENT_PATH,
+
+  AUTH_MICROSERVICE_HOST: envVars.AUTH_MICROSERVICE_HOST,
+  AUTH_MICROSERVICE_PORT: envVars.AUTH_MICROSERVICE_PORT,
+
+  COMS_MICROSERVICE_HOST: envVars.COMS_MICROSERVICE_HOST,
+  COMS_MICROSERVICE_PORT: envVars.COMS_MICROSERVICE_PORT,
 };

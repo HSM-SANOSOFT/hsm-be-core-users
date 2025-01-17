@@ -3,8 +3,8 @@ import { NestFactory } from '@nestjs/core';
 import type { MicroserviceOptions } from '@nestjs/microservices';
 import { Transport } from '@nestjs/microservices';
 
-import { AppModule } from './app.module';
 import { envs } from '../config';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const logger = new Logger('PERSONAL');
@@ -14,8 +14,8 @@ async function bootstrap() {
     {
       transport: Transport.TCP,
       options: {
-        host: envs.PERSONAL_MICROSERVICE_HOST,
-        port: envs.PERSONAL_MICROSERVICE_PORT,
+        host: envs.USERS_MICROSERVICE_HOST,
+        port: envs.USERS_MICROSERVICE_PORT,
       },
     },
   );
@@ -27,6 +27,6 @@ async function bootstrap() {
     }),
   );
   await app.listen();
-  logger.log(`Microservice is active on port ${envs.PERSONAL_MICROSERVICE_PORT}`);
+  logger.log(`Microservice is active on port ${envs.USERS_MICROSERVICE_PORT}`);
 }
 bootstrap();
