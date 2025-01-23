@@ -251,10 +251,28 @@ export class DatabaseService {
 
       return result.rows;
     } catch (error) {
-      this.logger.error(`Error al ejecutar la consulta: ${error.message}`);
-
       if (error instanceof RpcException) {
-        throw error; // Re-throw known RpcException
+        throw error;
+      }
+
+      throw new RpcException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: `Error inesperado al ejecutar la consulta: ${error.message || error}`,
+      });
+    }
+  }
+
+  async getUserData(userCode: string) {
+    const query = `SELECT USUARIO, CODIGO, ESTADO_DE_DISPONIBILIDAD, UBICACION, CARGO, ESPPRS_CODIGO, NOMBRES, APELLIDOS, TELEFONO, EMAIL, DIRECCION, SEXO, SENESCYT FROM PERSONAL WHERE CODIGO = '${userCode}'`;
+    this.logger.debug(`query is: ${query}`);
+    try {
+      const result = await this.connection.execute(query, [], {
+        outFormat: oracledb.OUT_FORMAT_OBJECT,
+      });
+      return result.rows[0];
+    } catch (error) {
+      if (error instanceof RpcException) {
+        throw error;
       }
 
       throw new RpcException({

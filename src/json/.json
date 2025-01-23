@@ -1,0 +1,285 @@
+{
+    "username": "SIS",
+    "userCode": "AD00",
+    "userStatus": "D",
+    "userCargo": {
+        "code": "EST",
+        "name": ""
+    },
+    "userEspecialidad": {
+        "code": "ADM",
+        "name": ""
+    },
+    "userInfo": {
+        "nombre": "ADMINISTRADOR",
+        "apellido": "SISTEMA",
+        "email": "shirleyobandoandrade@gmail.com",
+        "telefono": "",
+        "direccion": "LORENZO DE GARAYCOA 3209 E ARGENTINA Y SAN MARTIN",
+        "genero": "F"
+    },
+    "userSenecyt": "",
+    "userMenu": [
+        {
+            "id": 2,
+            "ruta": "medicos",
+            "Data": {
+                "nombre": "MEDICOS",
+                "icono": "ri--stethoscope-fill",
+                "accesso": "TRUE"
+            },
+            "submenu": [
+                {
+                    "id": 4,
+                    "ruta": "HIS",
+                    "Data": {
+                        "nombre": "Grupos de Menu",
+                        "icono": "ri--group-fill",
+                        "accesso": "TRUE"
+                    },
+                    "modulo": [
+                        {
+                            "id": 7,
+                            "ruta": "TIC",
+                            "nombre": "Auditorias API RC",
+                            "icono": "ri--git-close-pull-request-line",
+                            "accesso": "TRUE",
+                            "componente": [
+                                {
+                                    "id": 7,
+                                    "nombre": "auditoria_api_rc",
+                                    "parametros": null,
+                                    "accesso": "TRUE",
+                                    "permisos": {
+                                        "Crear": "1",
+                                        "Leer": "1",
+                                        "Actualizar": "1",
+                                        "Eliminar": "1"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": 6,
+                            "ruta": "TIC",
+                            "nombre": "Creación de usuarios",
+                            "icono": "ri--git-close-pull-request-line",
+                            "accesso": "TRUE",
+                            "componente": [
+                                {
+                                    "id": 6,
+                                    "nombre": "creacion_usuario",
+                                    "parametros": null,
+                                    "accesso": "TRUE",
+                                    "permisos": {
+                                        "Crear": "1",
+                                        "Leer": "1",
+                                        "Actualizar": "1",
+                                        "Eliminar": "1"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": 5,
+                            "ruta": "TIC",
+                            "nombre": "Funciones Turnero",
+                            "icono": "ri--git-close-pull-request-line",
+                            "accesso": "TRUE",
+                            "componente": [
+                                {
+                                    "id": 5,
+                                    "nombre": "funciones_turnero",
+                                    "parametros": null,
+                                    "accesso": "TRUE",
+                                    "permisos": {
+                                        "Crear": "1",
+                                        "Leer": "1",
+                                        "Actualizar": "1",
+                                        "Eliminar": "1"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": 4,
+                            "ruta": "TIC",
+                            "nombre": "Procesos de BD",
+                            "icono": "ri--git-close-pull-request-line",
+                            "accesso": "TRUE",
+                            "componente": [
+                                {
+                                    "id": 4,
+                                    "nombre": "procesos_db",
+                                    "parametros": null,
+                                    "accesso": "TRUE",
+                                    "permisos": {
+                                        "Crear": "1",
+                                        "Leer": "1",
+                                        "Actualizar": "1",
+                                        "Eliminar": "1"
+                                    }
+                                },
+                                {
+                                    "id": 3,
+                                    "nombre": "horarios_medicos",
+                                    "parametros": null,
+                                    "accesso": "TRUE",
+                                    "permisos": {
+                                        "Crear": "1",
+                                        "Leer": "1",
+                                        "Actualizar": "1",
+                                        "Eliminar": "1"
+                                    }
+                                },
+                                {
+                                    "id": 2,
+                                    "nombre": "menu_cargos",
+                                    "parametros": null,
+                                    "accesso": "TRUE",
+                                    "permisos": {
+                                        "Crear": "1",
+                                        "Leer": "1",
+                                        "Actualizar": "1",
+                                        "Eliminar": "1"
+                                    }
+                                },
+                                {
+                                    "id": 1,
+                                    "nombre": "menu_usuario",
+                                    "parametros": null,
+                                    "accesso": "TRUE",
+                                    "permisos": {
+                                        "Crear": "1",
+                                        "Leer": "1",
+                                        "Actualizar": "1",
+                                        "Eliminar": "1"
+                                    }
+                                },
+                                {
+                                    "id": 8,
+                                    "nombre": "maestro_frupo_menu",
+                                    "parametros": null,
+                                    "accesso": "TRUE",
+                                    "permisos": {
+                                        "Crear": "1",
+                                        "Leer": "1",
+                                        "Actualizar": "1",
+                                        "Eliminar": "1"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "ruta": "admision_hsp",
+            "Data": {
+                "nombre": "ADMISION_HSP",
+                "icono": "ri--hospital-fill",
+                "accesso": "FALSE"
+            },
+            "submenu": [
+                {
+                    "id": 5,
+                    "ruta": "HIS",
+                    "Data": {
+                        "nombre": "Pacientes",
+                        "icono": "ri--group-fill",
+                        "accesso": "FALSE"
+                    },
+                    "modulo": [
+                        {
+                            "id": 9,
+                            "ruta": "HIS",
+                            "nombre": "Ficha del Paciente",
+                            "icono": "ri--git-close-pull-request-line",
+                            "accesso": "FALSE",
+                            "componente": [
+                                {
+                                    "id": 10,
+                                    "nombre": "permanencia_atencion",
+                                    "parametros": null,
+                                    "accesso": "FALSE",
+                                    "permisos": {
+                                        "Crear": "0",
+                                        "Leer": "0",
+                                        "Actualizar": "0",
+                                        "Eliminar": "0"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": 9,
+                            "ruta": "HIS",
+                            "nombre": "Ficha del Paciente",
+                            "icono": "ri--git-close-pull-request-line",
+                            "accesso": "TRUE",
+                            "componente": [
+                                {
+                                    "id": 9,
+                                    "nombre": "paciente",
+                                    "parametros": null,
+                                    "accesso": "TRUE",
+                                    "permisos": {
+                                        "Crear": "1",
+                                        "Leer": "1",
+                                        "Actualizar": "1",
+                                        "Eliminar": "1"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "ruta": "admision",
+            "Data": {
+                "nombre": "ADMISION_CEX",
+                "icono": "ri--remote-control-2-fill",
+                "accesso": "FALSE"
+            },
+            "submenu": [
+                {
+                    "id": 6,
+                    "ruta": "HIS",
+                    "Data": {
+                        "nombre": "Procesos",
+                        "icono": "ri--group-fill",
+                        "accesso": "FALSE"
+                    },
+                    "modulo": [
+                        {
+                            "id": 10,
+                            "ruta": "HIS",
+                            "nombre": "Examen PArticular",
+                            "icono": "ri--git-close-pull-request-line",
+                            "accesso": "FALSE",
+                            "componente": [
+                                {
+                                    "id": 11,
+                                    "nombre": "examan_particular",
+                                    "parametros": null,
+                                    "accesso": "FALSE",
+                                    "permisos": {
+                                        "Crear": null,
+                                        "Leer": null,
+                                        "Actualizar": null,
+                                        "Eliminar": null
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

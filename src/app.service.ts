@@ -273,8 +273,33 @@ export class AppService {
     return datos;
   }
 
-  async getUser(userDto: UserDto) {
+  async getUserData(userDto: UserDto) {
     const { userCode } = userDto;
-    return userCode;
+    const user = await this.databaseService.getUserData(userCode);
+    const userMenu = await this.userMenu({ usercode: userCode, ver_todo: 'S' });
+    const userData = {
+      username: user.USUARIO || '',
+      userCode: user.CODIGO || '',
+      userStatus: user.ESTADO_DE_DISPONIBILIDAD || '',
+      userCargo: {
+        code: user.CARGO || '',
+        name: user.CargoName || '',
+      },
+      userEspecialidad: {
+        code: user.ESPPRS_CODIGO || '',
+        name: user.EspecialidadName || '',
+      },
+      userInfo: {
+        nombre: user.NOMBRES || '',
+        apellido: user.APELLIDOS || '',
+        email: user.EMAIL || '',
+        telefono: user.TELEFONO || '',
+        direccion: user.DIRECCION || '',
+        genero: user.SEXO || '',
+      },
+      userSenecyt: user.SENECYT || '',
+      userMenu: userMenu.menu || [],
+    };
+    return userData;
   }
 }

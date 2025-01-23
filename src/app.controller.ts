@@ -56,7 +56,7 @@ export class AppController {
   }
 
   @MessagePattern('getUser')
-  getUser(@Payload() userDto: UserDto) {
-    return this.appService.getUser(userDto);
+  getUserData(@Payload() userDto: UserDto) {
+    return this.appService.getUserData(userDto);
   }
 }

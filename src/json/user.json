@@ -9,14 +9,9 @@
         "email": "string",
         "telefono": "string",
         "direccion": "string",
-        "sexo": "string",
-        "medicos": {
-            "numeroSenecyd": "string",
-            "libroMSP": "string",
-            "folioMSP": "string",
-            "numeroMSP": "string"
-        }
+        "sexo": "string"
     },
+    "userSenecyt": "string",
     "userCargo": "string",
     "userCargoCode": "string",
     "userEspecialidad": "string",
