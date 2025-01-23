@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { AllUserDto } from './dto/allusers.dto';
 import { ChangePasswordDto } from './dto/changepassword.dto';
 import { DataUserDto } from './dto/datauser.dto';
+import { UserDto } from './dto/user.dto';
 import { UserMenuDto } from './dto/userMenu.dto';
 import { UserUnlockDto } from './dto/userUnlock.dto';
 import { ValidCodeDto } from './dto/validcode.dto';
@@ -52,5 +53,10 @@ export class AppController {
   @MessagePattern('allUsers')
   allUser(@Payload() alluserDto: AllUserDto) {
     return this.appService.allUsers(alluserDto);
+  }
+
+  @MessagePattern('getUser')
+  getUser(@Payload() userDto: UserDto) {
+    return this.appService.getUser(userDto);
   }
 }

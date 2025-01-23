@@ -6,6 +6,7 @@ import { DatabaseService } from './database/database.service';
 import { AllUserDto } from './dto/allusers.dto';
 import { ChangePasswordDto } from './dto/changepassword.dto';
 import { DataUserDto } from './dto/datauser.dto';
+import { UserDto } from './dto/user.dto';
 import { UserMenuDto } from './dto/userMenu.dto';
 import { UserUnlockDto } from './dto/userUnlock.dto';
 import { ValidCodeDto } from './dto/validcode.dto';
@@ -266,5 +267,10 @@ export class AppService {
       });
     }
     return datos;
+  }
+
+  async getUser(userDto: UserDto) {
+    const { userCode } = userDto;
+    return userCode;
   }
 }

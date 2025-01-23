@@ -195,7 +195,7 @@ export class DatabaseService {
         `SELECT D.USERNAME, P.CODIGO, (P.NOMBRES || ' ' || P.APELLIDOS) AS NOMBRE 
        FROM DBA_USERS D 
        INNER JOIN PERSONAL P ON P.USUARIO = D.USERNAME 
-       WHERE ${filtro}` ,
+       WHERE ${filtro}`,
         [],
         { outFormat: oracledb.OUT_FORMAT_OBJECT },
       );
