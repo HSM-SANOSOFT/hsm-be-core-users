@@ -220,9 +220,8 @@ export class DatabaseService {
     }
   }
 
-  async getmenuUser(usercode:any){
+  async getmenuUser(usercode: any) {
     try {
-
       const result = await this.connection.execute(
         `SELECT GM.ID_GRUPO_MENU,GM.DESCRIPCION AS MENU_DESCRIPION,GM.RUTA AS MENU_RUTA, GM.ICONO AS MENU_ICONO,
           CASE WHEN PUC.LEER IS NULL or PUC.LEER = 0 THEN 'FALSE' ELSE 'TRUE' END AS MENU_ACCESO,
