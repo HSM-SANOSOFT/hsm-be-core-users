@@ -149,7 +149,101 @@ export class AppService {
   }
 
   async userMenu(usermenuDto: UserMenuDto) {
-    return usermenuDto;
+    const { usercode, ver_todo } = usermenuDto;
+
+    try {
+      const datos = await this.databaseService.getmenuUser(usercode);
+
+      if (!datos || datos.length === 0) {
+        throw new RpcException({
+          status: 404,
+          message: 'No se encontraron menús disponibles para este usuario.',
+        });
+      }
+
+      let accion = '';
+      if(ver_todo == 'S'){
+        accion = 'A';
+      }else{
+        accion = 'FALSE';
+      }
+
+      const menu_user: any[] = [];
+
+      datos.forEach(item => {
+        if(item.MENU_ACCESO !== accion){
+          let menu = menu_user.find(g => g.id === item.ID_GRUPO_MENU );
+
+          if (!menu) {
+            menu = {
+              id:item.ID_GRUPO_MENU,
+              ruta:item.MENU_RUTA,
+              Data:{
+                nombre: item.MENU_DESCRIPION,
+                icono: item.MENU_ICONO,
+                accesso: item.MENU_ACCESO
+              },
+              submenu: [],
+            };
+            menu_user.push(menu);
+          }
+
+          let submenu = menu.submenu.find(s => s.id === item.ID_SUBGRUPO);
+          if (!submenu) {
+            submenu = {
+              id:item.ID_SUBGRUPO,
+              ruta:item.SUBMENU_RUTA,
+              Data:{
+                nombre: item.SUBMENU_DESCRIPCION,
+                icono: item.SUBMENU_ICONO,
+                accesso: item.SUBMENU_ACCESO
+              },
+              modulo: [],
+            };
+            menu.submenu.push(submenu);
+          }
+
+          let modulo = submenu.modulo.find(s => s.id === item.ID_SUBGRUPO);
+          if (!modulo) {
+            modulo = {
+              id:item.ID_CONTENIDO,
+              ruta:item.CONTENIDO_RUTA,
+              nombre: item.CONTENIDO_DESCRIPCION,
+              icono: item.CONTENIDO_ICONO,
+              accesso: item.CONTENIDO_ACCESO,
+              componente:[],
+            };
+            submenu.modulo.push(modulo);
+          }
+
+          let componente = modulo.componente.find(s => s.id === item.ID_COMPONENTE);
+          if (!componente) {
+            componente = {
+              id:item.ID_COMPONENTE,
+              nombre: item.NOMBRE_COMPONENTE,
+              parametros:item.PARAMETROS_COMPONENTES,
+              accesso: item.COMPONENTE_ACCESO,
+              permisos:{
+                Crear: item.CREAR,
+                Leer: item.LEER,
+                Actualizar: item.EDITAR,
+                Eliminar:item.BORRAR
+              },
+            };
+            modulo.componente.push(componente);
+          }
+        }
+      });
+      return {
+        success: true,
+        menu: menu_user,
+      };
+    } catch (error) {
+      throw new RpcException({
+        status: error?.status || 500,
+        message: error?.message || 'Error inesperado durante la validación o generación de la historia clínica.',
+      });
+    }
   }
 
   async allUsers(alluserDto: AllUserDto) {

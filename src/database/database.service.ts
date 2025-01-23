@@ -219,4 +219,49 @@ export class DatabaseService {
       });
     }
   }
+
+  async getmenuUser(usercode:any){
+    try {
+
+      const result = await this.connection.execute(
+        `SELECT GM.ID_GRUPO_MENU,GM.DESCRIPCION AS MENU_DESCRIPION,GM.RUTA AS MENU_RUTA, GM.ICONO AS MENU_ICONO,
+          CASE WHEN PUC.LEER IS NULL or PUC.LEER = 0 THEN 'FALSE' ELSE 'TRUE' END AS MENU_ACCESO,
+          SM.ID_SUBGRUPO,SM.DESCRIPCION AS SUBMENU_DESCRIPCION, SM.RUTA AS SUBMENU_RUTA, SM.ICONO AS SUBMENU_ICONO,
+          CASE WHEN PUC.LEER IS NULL or PUC.LEER = 0 THEN 'FALSE' ELSE 'TRUE' END AS SUBMENU_ACCESO,
+          CN.ID_CONTENIDO,CN.DESCRIPCION AS CONTENIDO_DESCRIPCION,CN.RUTA AS CONTENIDO_RUTA, CN.ICONO AS CONTENIDO_ICONO,
+          CASE WHEN PUC.LEER IS NULL or PUC.LEER = 0 THEN 'FALSE' ELSE 'TRUE' END AS CONTENIDO_ACCESO,
+          COM.ID_COMPONENTE,COM.NOMBRE AS NOMBRE_COMPONENTE, COM.PARAMETROS AS PARAMETROS_COMPONENTES,
+          CASE WHEN PUC.LEER IS NULL or PUC.LEER = 0 THEN 'FALSE' ELSE 'TRUE' END AS COMPONENTE_ACCESO,
+          PUC.CREAR,PUC.EDITAR,PUC.BORRAR,PUC.LEER
+        FROM SN_COMPONENTES_MENU_S COM
+        INNER JOIN SN_CONTENIDO_MENU_S CN ON CN.ID_CONTENIDO = COM.ID_CONTENIDO AND CN.ESTATUS = 'A'
+        INNER JOIN SN_SUBGRUPO_MENU_S SM ON SM.ID_SUBGRUPO = CN.ID_SUBMENU AND SM.ESTATUS = 'A'
+        INNER JOIN SN_GRUPO_MENU_S GM ON GM.ID_GRUPO_MENU = SM.ID_GRUPO AND SM.ESTATUS = 'A'
+        LEFT JOIN SN_PERMISOS_USUARIO_COMPONENTE PUC ON PUC.CODIGO_USUARIO = :usercode AND PUC.ID_COMPONENTE = COM.ID_COMPONENTE
+        WHERE COM.ESTATUS = 'A'`,
+        [usercode],
+        { outFormat: oracledb.OUT_FORMAT_OBJECT },
+      );
+
+      if (result.rows.length === 0) {
+        throw new RpcException({
+          status: HttpStatus.NOT_FOUND,
+          message: 'No se encontraron menús disponibles para este usuario.',
+        });
+      }
+
+      return result.rows;
+    } catch (error) {
+      this.logger.error(`Error al ejecutar la consulta: ${error.message}`);
+
+      if (error instanceof RpcException) {
+        throw error; // Re-throw known RpcException
+      }
+
+      throw new RpcException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: `Error inesperado al ejecutar la consulta: ${error.message || error}`,
+      });
+    }
+  }
 }
