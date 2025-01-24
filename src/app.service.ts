@@ -243,7 +243,7 @@ export class AppService {
       };
     } catch (error) {
       throw new RpcException({
-        status: error?.status || 500,
+        status: error?.status || HttpStatus.BAD_REQUEST,
         message:
           error?.message ||
           'Error inesperado durante la validación o generación de la historia clínica.',
@@ -264,6 +264,10 @@ export class AppService {
     try {
       datos = await this.databaseService.getallUser(where);
     } catch (error) {
+      if (error instanceof RpcException) {
+        throw error;
+      }
+
       throw new RpcException({
         status: HttpStatus.BAD_REQUEST,
         message: error,
@@ -275,31 +279,43 @@ export class AppService {
 
   async getUserData(userDto: UserDto) {
     const { userCode } = userDto;
-    const user = await this.databaseService.getUserData(userCode);
-    const userMenu = await this.userMenu({ usercode: userCode, ver_todo: 'S' });
-    const userData = {
-      username: user.USUARIO || '',
-      userCode: user.CODIGO || '',
-      userStatus: user.ESTADO_DE_DISPONIBILIDAD || '',
-      userCargo: {
-        code: user.CARGO || '',
-        name: user.CargoName || '',
-      },
-      userEspecialidad: {
-        code: user.ESPPRS_CODIGO || '',
-        name: user.EspecialidadName || '',
-      },
-      userInfo: {
-        nombre: user.NOMBRES || '',
-        apellido: user.APELLIDOS || '',
-        email: user.EMAIL || '',
-        telefono: user.TELEFONO || '',
-        direccion: user.DIRECCION || '',
-        genero: user.SEXO || '',
-      },
-      userSenecyt: user.SENECYT || '',
-      userMenu: userMenu.menu || [],
-    };
-    return userData;
+    try {
+      const user = await this.databaseService.getUserData(userCode);
+      const userMenu = await this.userMenu({
+        usercode: userCode,
+        ver_todo: 'S',
+      });
+      const userData = {
+        username: user.USUARIO || '',
+        userCode: user.CODIGO || '',
+        userStatus: user.ESTADO_DE_DISPONIBILIDAD || '',
+        userCargo: {
+          code: user.CARGO || '',
+          name: user.CargoName || '',
+        },
+        userEspecialidad: {
+          code: user.ESPPRS_CODIGO || '',
+          name: user.EspecialidadName || '',
+        },
+        userInfo: {
+          nombre: user.NOMBRES || '',
+          apellido: user.APELLIDOS || '',
+          email: user.EMAIL || '',
+          telefono: user.TELEFONO || '',
+          direccion: user.DIRECCION || '',
+          genero: user.SEXO || '',
+        },
+        userSenecyt: user.SENECYT || '',
+        userMenu: userMenu.menu || [],
+      };
+      return userData;
+    } catch (error) {
+      throw new RpcException({
+        status: error?.status || HttpStatus.BAD_REQUEST,
+        message:
+          error?.message ||
+          'Error inesperado durante la obtencion de los datos del usuario.',
+      });
+    }
   }
 }

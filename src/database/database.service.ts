@@ -269,6 +269,14 @@ export class DatabaseService {
       const result = await this.connection.execute(query, [], {
         outFormat: oracledb.OUT_FORMAT_OBJECT,
       });
+
+      if (!result.rows.length) {
+        throw new RpcException({
+          status: HttpStatus.NOT_FOUND,
+          message: 'No se encontró información para el usuario proporcionado.',
+        });
+      }
+
       return result.rows[0];
     } catch (error) {
       if (error instanceof RpcException) {
