@@ -291,11 +291,11 @@ export class AppService {
         userStatus: user.ESTADO_DE_DISPONIBILIDAD || '',
         userCargo: {
           code: user.CARGO || '',
-          name: user.CargoName || '',
+          name: user.CARGONAME || '',
         },
         userEspecialidad: {
           code: user.ESPPRS_CODIGO || '',
-          name: user.EspecialidadName || '',
+          name: user.ESPECIALIDADNAME || '',
         },
         userInfo: {
           nombre: user.NOMBRES || '',
