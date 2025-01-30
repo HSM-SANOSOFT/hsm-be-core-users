@@ -1,7 +1,7 @@
 import { HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
+import { envs } from 'config';
 
-import * as ms from '../config/services';
 import { DatabaseService } from './database/database.service';
 import { AllUserDto } from './dto/allusers.dto';
 import { ChangePasswordDto } from './dto/changepassword.dto';
@@ -15,8 +15,10 @@ import { ValidCodeDto } from './dto/validcode.dto';
 export class AppService {
   constructor(
     private readonly databaseService: DatabaseService,
-    @Inject(ms.AUTH_SERVICE) private readonly authClient: ClientProxy,
-    @Inject(ms.COMS_SERVICE) private readonly comsClient: ClientProxy,
+    @Inject(envs.AUTH_MICROSERVICE_NAME)
+    private readonly authClient: ClientProxy,
+    @Inject(envs.COMS_MICROSERVICE_NAME)
+    private readonly comsClient: ClientProxy,
   ) {}
 
   private readonly logger = new Logger('AUTH');

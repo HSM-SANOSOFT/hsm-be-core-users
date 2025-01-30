@@ -17,7 +17,8 @@ import { DatabaseModule } from './database/database.module';
           host: envs.AUTH_MICROSERVICE_HOST,
           port: envs.AUTH_MICROSERVICE_PORT,
         },
-      },{
+      },
+      {
         name: ms.COMS_SERVICE,
         transport: Transport.TCP,
         options: {
