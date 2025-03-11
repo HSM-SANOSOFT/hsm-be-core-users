@@ -169,7 +169,6 @@ export class DatabaseService {
     STATUS: string;
     TIPO_ENVIO: string;
   }) {
-    const FECHA = new Date();
     const FECHA_ACT = new Date();
     let connection: oracledb.Connection | null = null;
     try {
