@@ -7,15 +7,15 @@ import { envs } from '../config';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const logger = new Logger('USERS');
+  const logger = new Logger(envs.HSM_BE_CORE_USERS_NAME);
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
       transport: Transport.TCP,
       options: {
-        host: envs.USERS_MICROSERVICE_HOST,
-        port: envs.USERS_MICROSERVICE_PORT,
+        host: envs.HSM_BE_CORE_USERS_HOST,
+        port: envs.HSM_BE_CORE_USERS_PORT,
       },
     },
   );
@@ -31,6 +31,6 @@ async function bootstrap() {
     }),
   );
   await app.listen();
-  logger.log(`Microservice is active on port ${envs.USERS_MICROSERVICE_PORT}`);
+  logger.log(`Microservice is active on port ${envs.HSM_BE_CORE_USERS_PORT}`);
 }
-bootstrap();
+void bootstrap();
