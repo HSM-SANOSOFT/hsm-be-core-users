@@ -148,6 +148,9 @@ export class DatabaseService {
         message: `Record created with ID: ${ID}`,
       };
     } catch (error) {
+      if (error instanceof RpcException) {
+        throw error;
+      }
       this.logger.error(`Error fetching data: ${error}`);
       throw new RpcException({
         status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -197,6 +200,9 @@ export class DatabaseService {
         };
       }
     } catch (error) {
+      if (error instanceof RpcException) {
+        throw error;
+      }
       this.logger.error(`Error fetching data: ${error}`);
       throw new RpcException({
         status: HttpStatus.INTERNAL_SERVER_ERROR,
