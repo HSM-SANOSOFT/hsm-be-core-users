@@ -36,7 +36,7 @@ export class AppService {
         ],
       },
       genero: result.SEXO,
-      lopd: [lopd],
+      lopd: lopd,
     };
     return user;
   }
