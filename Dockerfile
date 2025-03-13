@@ -27,5 +27,4 @@ COPY package*.json .
 RUN pnpm install
 COPY . .
 RUN pnpm build
-EXPOSE $USERS_MICROSERVICE_PORT
 CMD ["pnpm", "run", "start:dev"]
