@@ -181,6 +181,7 @@ export class DatabaseService {
         [data.CEDULA, data.TIPO_ENVIO],
         { outFormat: oracledb.OUT_FORMAT_OBJECT },
       );
+      console.log(resultLOPDPrev);
       if (resultLOPDPrev.rows && resultLOPDPrev.rows.length > 0) {
         const NUM = (resultLOPDPrev.rows[0] as { NUM: number }).NUM;
         if (NUM === 0) {
