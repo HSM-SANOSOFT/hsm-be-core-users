@@ -35,14 +35,14 @@ export class DatabaseService {
         return data;
       } else {
         throw new RpcException({
-          status: HttpStatus.NOT_FOUND,
+          statusCode: HttpStatus.NOT_FOUND,
           message: `No records found for ID: ${IdDocs}`,
         });
       }
     } catch (error) {
       this.logger.error(`Error fetching data: ${error}`);
       throw new RpcException({
-        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
         message: `Error fetching data: ${error}`,
       });
     } finally {
@@ -87,7 +87,7 @@ export class DatabaseService {
     } catch (error) {
       this.logger.error(`Error fetching data: ${error}`);
       throw new RpcException({
-        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
         message: `Error fetching data: ${error}`,
       });
     } finally {
@@ -120,7 +120,7 @@ export class DatabaseService {
       const NUM = (resultLOPDPrev.rows?.[0] as { NUM: number }).NUM || 0;
       if (NUM > 0) {
         throw new RpcException({
-          status: HttpStatus.CONFLICT,
+          statusCode: HttpStatus.CONFLICT,
           message: `Record already exists for ID: ${data.CEDULA}`,
         });
       }
@@ -133,7 +133,7 @@ export class DatabaseService {
 
       if (!ID) {
         throw new RpcException({
-          status: HttpStatus.NOT_FOUND,
+          statusCode: HttpStatus.NOT_FOUND,
           message: `Failed to generate new ID for CEDULA: ${data.CEDULA}`,
         });
       }
@@ -144,7 +144,7 @@ export class DatabaseService {
         { autoCommit: true },
       );
       return {
-        status: HttpStatus.CREATED,
+        statusCode: HttpStatus.CREATED,
         message: `Record created with ID: ${ID}`,
       };
     } catch (error) {
@@ -153,7 +153,7 @@ export class DatabaseService {
       }
       this.logger.error(`Error fetching data: ${error}`);
       throw new RpcException({
-        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
         message: `Error fetching data: ${error}`,
       });
     } finally {
@@ -185,7 +185,7 @@ export class DatabaseService {
         const NUM = (resultLOPDPrev.rows[0] as { NUM: number }).NUM;
         if (NUM === 0) {
           throw new RpcException({
-            status: HttpStatus.NOT_FOUND,
+            statusCode: HttpStatus.NOT_FOUND,
             message: `No records found for ID: ${data.CEDULA}`,
           });
         }
@@ -195,7 +195,7 @@ export class DatabaseService {
           { autoCommit: true },
         );
         return {
-          status: HttpStatus.OK,
+          statusCode: HttpStatus.OK,
           message: `Record updated for ID: ${data.CEDULA}`,
         };
       }
@@ -205,7 +205,7 @@ export class DatabaseService {
       }
       this.logger.error(`Error fetching data: ${error}`);
       throw new RpcException({
-        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
         message: `Error fetching data: ${error}`,
       });
     } finally {
