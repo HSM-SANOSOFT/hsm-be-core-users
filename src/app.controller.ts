@@ -6,20 +6,20 @@ import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  private readonly logger = new Logger(AppController.name);
+  private readonly logger = new Logger();
   constructor(private readonly appService: AppService) {}
 
   @MessagePattern('getUser')
   async getUser(@Payload() IdDocs: string) {
     const response = await this.appService.getUser(IdDocs);
-    this.logger.log(response);
+    this.logger.log('getUser(): ' + JSON.stringify(response));
     return response;
   }
 
   @MessagePattern('getUsersLOPD')
   async getUsersLOPD(@Payload() IdDocs: string) {
     const response = await this.appService.getUsersLOPD(IdDocs);
-    this.logger.log(response);
+    this.logger.log('getUsersLOPD(): ' + JSON.stringify(response));
     return response;
   }
 
@@ -34,7 +34,7 @@ export class AppController {
       STATUS,
       TIPO_ENVIO,
     });
-    this.logger.log(response);
+    this.logger.log('createUserLOPD(): ' + JSON.stringify(response));
     return response;
   }
 
@@ -49,7 +49,7 @@ export class AppController {
       STATUS,
       TIPO_ENVIO,
     });
-    this.logger.log(response);
+    this.logger.log('updateUserLOPD(): ' + JSON.stringify(response));
     return response;
   }
 }

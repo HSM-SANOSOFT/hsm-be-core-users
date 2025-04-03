@@ -1,15 +1,17 @@
 import { Injectable, Logger } from '@nestjs/common';
 
-import { DatabaseService } from './database/database.service';
+import { DatabaseRepository } from './database/database.repository';
 
 @Injectable()
 export class AppService {
-  private readonly logger = new Logger(AppService.name);
-  constructor(private readonly databaseService: DatabaseService) {}
+  private readonly logger = new Logger();
+  constructor(private readonly databaseRepository: DatabaseRepository) {}
 
   async getUser(IdDocs: string) {
-    const result = await this.databaseService.getUser(IdDocs);
-    const lopd = await this.databaseService.getUsersLOPD(IdDocs);
+    const result =
+      await this.databaseRepository.pacientesRepository.getUser(IdDocs);
+    const lopd =
+      await this.databaseRepository.pdpRepository.getUsersLOPD(IdDocs);
     const user = {
       documento: {
         id: result.CEDULA,
@@ -42,7 +44,8 @@ export class AppService {
   }
 
   async getUsersLOPD(IdDocs: string) {
-    const response = await this.databaseService.getUsersLOPD(IdDocs);
+    const response =
+      await this.databaseRepository.pdpRepository.getUsersLOPD(IdDocs);
 
     return response;
   }
@@ -52,7 +55,7 @@ export class AppService {
     STATUS: string;
     TIPO_ENVIO: string;
   }) {
-    return await this.databaseService.createUserLOPD(data);
+    return await this.databaseRepository.pdpRepository.createUserLOPD(data);
   }
 
   async updateUserLOPD(data: {
@@ -60,6 +63,6 @@ export class AppService {
     STATUS: string;
     TIPO_ENVIO: string;
   }) {
-    return await this.databaseService.updateUserLOPD(data);
+    return await this.databaseRepository.pdpRepository.updateUserLOPD(data);
   }
 }
